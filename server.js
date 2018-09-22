@@ -1,5 +1,5 @@
-// require('dotenv').config();
 const express = require('express');
+require('dotenv').config();
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
