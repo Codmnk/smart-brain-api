@@ -1,0 +1,25 @@
+version: '3.6'
+
+services:
+  # Postgres service
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: smart-brain-docker
+    build: ./postgres
+    ports:
+      - "5432:5432"
+
+  # Backend API
+  smart-brain-api: 
+    container_name: backend
+    build: .
+    command: npm start
+    working_dir: /usr/src/smart-brain-api
+    environment:
+      POSTGRES_URI: postgres://dbuser:123@postgres:5432/smart-brain-docker
+    ports:
+      - "3000:3000"
+
