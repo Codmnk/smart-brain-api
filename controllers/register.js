@@ -4,6 +4,7 @@ const handleRegister = (req, res, db, bcrypt) => {
     return res.status(400).json('incorrect form submission');
   }
   const hash = bcrypt.hashSync(password);
+  
     db.transaction(trx => {
       trx.insert({
         hash: hash,
@@ -26,7 +27,9 @@ const handleRegister = (req, res, db, bcrypt) => {
       .then(trx.commit)
       .catch(trx.rollback)
     })
-    .catch(err => res.status(400).json('unable to register'))
+    .catch(err => {
+      res.status(400).json('unable to register')
+    } )
 }
 
 module.exports = {
